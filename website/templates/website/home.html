@@ -1,0 +1,81 @@
+{% extends 'website/base.html' %}
+{% block content %}
+
+<h1>
+    This is a real shit.
+</h1>
+
+
+{% if response %}
+
+<pre>
+  <code class='line-numbers language-{{lang}}'>
+    {{response}}
+    </code>
+  </pre>
+  <br>
+  <form action="{% url 'home' %}" method=POST>
+      {% csrf_token %}
+  
+        <div class="mb-3">
+          {% comment %} <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label> {% endcomment %}
+          <textarea class="form-control" name="code" rows="3" placeholder="Have A.I fix Your Code">
+            {{code}}
+          </textarea>
+        </div>
+  
+        <select class="form-select" name="lang">
+          <option selected>Select a Programming Language</option>
+          {% for la in lang_list %}
+  
+          <option value="{{la}}">{{la}}</option>
+          {% comment %} value j rakhe pani farak pardaina. and use |title in lang to make them capitalize {% endcomment %}
+  
+          {% endfor %}
+        </select>
+        <br>
+  
+        <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+  <br>
+  
+
+{% else %}
+
+
+<pre>
+  <code class='line-numbers language-python'>
+    if name=="kushal":
+        print("babal")
+    else:
+        print("shit man")
+    </code>
+</pre>
+<br>
+<form action="{% url 'home' %}" method=POST>
+    {% csrf_token %}
+
+      <div class="mb-3">
+        {% comment %} <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label> {% endcomment %}
+        <textarea class="form-control" name="code" rows="3" placeholder="Have A.I fix Your Code"></textarea>
+      </div>
+
+      <select class="form-select" name="lang">
+        <option selected>Select a Programming Language</option>
+        {% for lang in lang_list %}
+
+        <option value="{{lang}}">{{lang}}</option>
+        {% comment %} value j rakhe pani farak pardaina. and use |title in lang to make them capitalize {% endcomment %}
+
+        {% endfor %}
+      </select>
+      <br>
+
+      <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+<br>
+{% endif %}
+
+{% comment %} {{lang_list}} {% endcomment %}
+
+{% endblock content %}
